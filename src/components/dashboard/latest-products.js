@@ -6,53 +6,68 @@ import {
   Card,
   CardHeader,
   Divider,
+  Grid,
   IconButton,
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText
+  ListItemText,
+  Typography
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useState } from 'react';
 
 const products = [
   {
     id: uuid(),
-    name: 'Dropbox',
-    imageUrl: '/static/images/products/product_1.png',
-    updatedAt: subHours(Date.now(), 2)
+    name: `Dr.Essa's Laboratory & Diagnostic center`,
+    imageUrl: 'https://pbs.twimg.com/profile_images/1054276848635523072/8hphsHvv_400x400.jpg',
+    city: 'peshawar',
+    timings: '9:00AM-10:00PM'
   },
   {
     id: uuid(),
-    name: 'Medium Corporation',
-    imageUrl: '/static/images/products/product_2.png',
-    updatedAt: subHours(Date.now(), 2)
+    name: `chugtai lab`,
+    imageUrl: 'https://static.marham.pk/assets/labs/2/chugtai-medical-25.png',
+    city: 'Lahore',
+    timings: '9:00AM-6:00PM'
   },
   {
     id: uuid(),
-    name: 'Slack',
-    imageUrl: '/static/images/products/product_3.png',
-    updatedAt: subHours(Date.now(), 3)
+    name: 'Citilab and Research Centre',
+    imageUrl: 'https://static.marham.pk/assets/labs/7/bd25b02dd90cf6a35218cf32ba2e3f21.png',
+    city: 'Lahore',
+    timings: '8:00AM-11:00PM'
   },
   {
     id: uuid(),
-    name: 'Lyft',
-    imageUrl: '/static/images/products/product_4.png',
-    updatedAt: subHours(Date.now(), 5)
+    name: 'CLINLAB',
+    imageUrl: 'https://static.marham.pk/assets/labs/16/b4b5ac145d89531429feaccaf4af71b6.png',
+    city: 'Islamabad',
+    timings: '9:00AM-11:00PM'
   },
   {
     id: uuid(),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
-    updatedAt: subHours(Date.now(), 9)
+    name: 'Mughal Labs Diagnostics and Research',
+    imageUrl: 'https://static.marham.pk/assets/labs/19/89790232_233431751390742_2819482709397602304_n.jpg',
+    city: 'Lahore',
+    timings: '24 hours'
   }
 ];
 
-export const LatestProducts = (props) => (
-  <Card {...props}>
+export const LatestProducts = (props) => {
+  const [isClick, setIsClick] = useState(false)
+  const [id, setId] = useState(0)
+  const handleClick = (value) => {
+    setIsClick(!isClick)
+    setId(value)
+  }
+  return(
+    <Card {...props}>
     <CardHeader
       subtitle={`${products.length} in total`}
-      title="Latest Products"
+      title="Top Labs"
     />
     <Divider />
     <List>
@@ -71,21 +86,38 @@ export const LatestProducts = (props) => (
               }}
             />
           </ListItemAvatar>
-          <ListItemText
-            primary={product.name}
-            secondary={`Updated ${formatDistanceToNow(product.updatedAt)}`}
-          />
+          <Grid container item direction='column' sx={{width: '100%'}}>
+            <ListItemText
+              primary={product.name}
+              secondary={product.city}
+            />
+            <ListItemText
+              secondary={product.timings}
+            />
+          </Grid>
           <IconButton
             edge="end"
             size="small"
+            onClick={() => {handleClick(product.id)}}
           >
             <MoreVertIcon />
           </IconButton>
+          {(isClick && id == product.id) &&
+          <Grid item sx={{width: '90px', height:'50px', bgcolor:'#FAF9F6', position: 'absolute', top: '75px', left: '180px', p: '10px', borderRadius: '10px'}}>
+              <Typography
+                color = 'error.main'
+                fontSize='1.1rem'
+                fontWeight = 'bold'
+                sx={{pr: '10px', py:'2px', pl: '5px'}}
+              >
+                Delete
+              </Typography>
+          </Grid>}
         </ListItem>
-      ))}
+        ))}
     </List>
     <Divider />
-    <Box
+    {/* <Box
       sx={{
         display: 'flex',
         justifyContent: 'flex-end',
@@ -100,6 +132,7 @@ export const LatestProducts = (props) => (
       >
         View all
       </Button>
-    </Box>
+    </Box> */}
   </Card>
-);
+  )
+};

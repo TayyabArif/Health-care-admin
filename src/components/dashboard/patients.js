@@ -1,8 +1,10 @@
-import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import MoneyIcon from '@mui/icons-material/Money';
+import { Avatar, Box, Card, CardContent, Grid, LinearProgress, Typography } from '@mui/material';
+import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
+import AccessibleIcon from '@mui/icons-material/Accessible';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
-export const Budget = (props) => (
+
+export const Patients = (props) => (
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -18,44 +20,46 @@ export const Budget = (props) => (
             color="textSecondary"
             gutterBottom
             variant="overline"
+            sx={{pr: 10}}
           >
-            BUDGET
+            Patients
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            $24k
+            4567
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: 'error.main',
+              backgroundColor: 'warning.main',
               height: 56,
               width: 56
             }}
           >
-            <MoneyIcon />
+            <AccessibleIcon sx={{height: 40, width: 40}}/>
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
+      <Box sx={{ pt: 3,
+        alignItems: 'center',
+        display: 'flex',
+        pt: 2 }}
       >
-        <ArrowDownwardIcon color="error" />
+        {/* <LinearProgress
+          value={75.5}
+          variant="determinate"
+        /> */}
+        <ArrowUpwardIcon color="success" />
         <Typography
-          color="error"
+          variant="body2"
           sx={{
             mr: 1
           }}
-          variant="body2"
         >
-          12%
+          16%
         </Typography>
         <Typography
           color="textSecondary"

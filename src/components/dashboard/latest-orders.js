@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
 import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { useRouter } from 'next/router';
+
 import {
   Box,
   Button,
@@ -16,6 +18,7 @@ import {
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '../severity-pill';
+import { useEffect, useState } from 'react';
 
 const orders = [
   {
@@ -80,83 +83,123 @@ const orders = [
   }
 ];
 
-export const LatestOrders = (props) => (
-  <Card {...props}>
-    <CardHeader title="Latest Orders" />
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Order Ref
-              </TableCell>
-              <TableCell>
-                Customer
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                  >
-                    Date
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.map((order) => (
-              <TableRow
-                hover
-                key={order.id}
-              >
+export const LatestOrders = (props) => {
+  const [labTests, setLabTests] =useState()
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/labtests');
+  };
+  useEffect(() => {
+    async function getData() {
+      try{
+        const res = await fetch('https://health-care-server-sooty.vercel.app/getlabtests')
+        const data = await res.json()
+        setLabTests(data)
+        setIsLoading(false)
+        console.log('response',data)
+      }
+      catch (err) {
+        console.log(err)
+      }
+    }
+    getData()
+  }, [])
+  if (labTests?.length) {
+    let myAllLabTests = labTests
+     let newArray = myAllLabTests.slice(-10);
+      orders = newArray.map(data => ({
+        id: data?.Id,
+        name: data?.name,
+        contactnumber: data?.contactnumber,
+        branch: data?.branche,
+        status: data?.status,
+        title: data?.title,
+    }))
+  }
+
+  return(
+    <Card {...props}>
+      <CardHeader title="Latest Orders" />
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 650 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
                 <TableCell>
-                  {order.ref}
+                  ID
                 </TableCell>
                 <TableCell>
-                  {order.customer.name}
+                  Name
                 </TableCell>
                 <TableCell>
-                  {format(order.createdAt, 'dd/MM/yyyy')}
+                  Contact
                 </TableCell>
                 <TableCell>
-                  <SeverityPill
-                    color={(order.status === 'delivered' && 'success')
-                    || (order.status === 'refunded' && 'error')
-                    || 'warning'}
-                  >
-                    {order.status}
-                  </SeverityPill>
+                  Title
+                </TableCell>
+                <TableCell>
+                  Branch
+                </TableCell>
+                <TableCell>
+                  Status
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon fontSize="small" />}
-        size="small"
-        variant="text"
+            </TableHead>
+            <TableBody>
+              {orders.map((order) => (
+                <TableRow
+                  hover
+                  key={order.id}
+                >
+                  <TableCell>
+                    {order.id}
+                  </TableCell>
+                  <TableCell>
+                    {order.name}
+                  </TableCell>
+                  <TableCell>
+                    {order.contactnumber}
+                  </TableCell>
+                  <TableCell>
+                    {order.title}
+                  </TableCell>
+                  <TableCell>
+                    {order.branch}
+                  </TableCell>
+                  <TableCell>
+                    <SeverityPill
+                      color={(order.status === 'completed' && 'success')
+                      || (order.status === 'pending' && 'error')
+                      || 'warning'}
+                    >
+                      {order.status}
+                    </SeverityPill>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </PerfectScrollbar>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
       >
-        View all
-      </Button>
-    </Box>
-  </Card>
-);
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon fontSize="small" />}
+          size="small"
+          variant="text"
+          onClick={handleClick}
+        >
+          View all
+        </Button>
+      </Box>
+    </Card>
+  )
+};

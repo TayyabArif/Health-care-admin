@@ -15,48 +15,62 @@ import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 const items = [
   {
-    href: '/',
+    href: '/dashboard',
     icon: (<ChartBarIcon fontSize="small" />),
     title: 'Dashboard'
   },
   {
-    href: '/customers',
+    href: '/users',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
+    title: 'Users'
   },
   {
-    href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
+    href: '/doctors',
+    icon: (<AccessibilityNewIcon fontSize="small" />),
+    title: 'Doctors'
   },
   {
-    href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
+    href: '/labtests',
+    icon: (<AddCircleOutlineIcon fontSize="small" />),
+    title: 'Lab Tests'
   },
   {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    href: '/appointments',
+    icon: (<AddCircleOutlineIcon fontSize="small" />),
+    title: 'Appointments'
   },
   {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
+    href: '/medicine',
+    icon: (<MedicalServicesIcon fontSize="small" />),
+    title: 'Medicine'
   },
   {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
+    href: '/nurses',
+    icon: (<AddCircleOutlineIcon fontSize="small" />),
+    title: 'Nurses'
   },
   {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
-  }
+    href: '/hospitals',
+    icon: (<LocalHospitalIcon fontSize="small" />),
+    title: 'Hospital'
+  },
+  // {
+  //   href: '/settings',
+  //   icon: (<CogIcon fontSize="small" />),
+  //   title: 'Settings'
+  // },
+  // {
+  //   href: '/404',
+  //   icon: (<XCircleIcon fontSize="small" />),
+  //   title: 'Error'
+  // }
 ];
 
 export const DashboardSidebar = (props) => {
@@ -91,18 +105,13 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ px: 3}}>
             <NextLink
-              href="/"
+              href="/dashboard"
               passHref
             >
               <a>
-                <Logo
-                  sx={{
-                    height: 42,
-                    width: 42
-                  }}
-                />
+               <img src='/Assets/images/logo.svg' alt='Picture' className=''/>
               </a>
             </NextLink>
           </Box>
@@ -124,15 +133,13 @@ export const DashboardSidebar = (props) => {
                   color="inherit"
                   variant="subtitle1"
                 >
-                  Acme Inc
+                  Health Care
                 </Typography>
                 <Typography
                   color="neutral.400"
                   variant="body2"
                 >
-                  Your tier
-                  {' '}
-                  : Premium
+                  Manage Your Stuff
                 </Typography>
               </div>
               <SelectorIcon
@@ -172,13 +179,13 @@ export const DashboardSidebar = (props) => {
             color="neutral.100"
             variant="subtitle2"
           >
-            Need more features?
+            Need complete features?
           </Typography>
           <Typography
             color="neutral.500"
             variant="body2"
           >
-            Check out our Pro solution template.
+            Check out our Health care app.
           </Typography>
           <Box
             sx={{
@@ -193,7 +200,7 @@ export const DashboardSidebar = (props) => {
           >
             <img
               alt="Go to pro"
-              src="/static/images/sidebar_pro.png"
+              src="https://static.marham.pk/assets/images/home-new/labs.png"
             />
           </Box>
           <NextLink
@@ -208,7 +215,7 @@ export const DashboardSidebar = (props) => {
               sx={{ mt: 2 }}
               variant="contained"
             >
-              Pro Live Preview
+              Live Health care Preview
             </Button>
           </NextLink>
         </Box>

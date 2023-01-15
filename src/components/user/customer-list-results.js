@@ -23,18 +23,19 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+    // let newSelectedCustomerIds;
 
-    if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
+    // if (event.target.checked) {
+    //   newSelectedCustomerIds = customers.map((customer) => customer.id);
+    // } else {
+    //   newSelectedCustomerIds = [];
+    // }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    // setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
   const handleSelectOne = (event, id) => {
+    console.log('event is', id)
     const selectedIndex = selectedCustomerIds.indexOf(id);
     let newSelectedCustomerIds = [];
 
@@ -65,7 +66,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
+        <Box sx={{ minWidth: 900 }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -87,13 +88,13 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   Email
                 </TableCell>
                 <TableCell>
-                  Location
+                  Type
                 </TableCell>
                 <TableCell>
                   Phone
                 </TableCell>
                 <TableCell>
-                  Registration date
+                   Speciality
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -102,12 +103,12 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                 <TableRow
                   hover
                   key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  selected={selectedCustomerIds.indexOf(customer._id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedCustomerIds.indexOf(customer._id) !== -1}
+                      onChange={(event) => handleSelectOne(event, customer._id)}
                       value="true"
                     />
                   </TableCell>
@@ -136,13 +137,13 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {customer.type}
                   </TableCell>
                   <TableCell>
                     {customer.phone}
                   </TableCell>
                   <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                    {customer.speciality}
                   </TableCell>
                 </TableRow>
               ))}

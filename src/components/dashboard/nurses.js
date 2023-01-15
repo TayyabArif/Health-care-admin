@@ -1,8 +1,25 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { useEffect, useState } from 'react';
 
-export const TotalCustomers = (props) => (
+export const Nurses = (props) => {
+  const [totalNurses, setTotalNurses] =useState()
+  useEffect(() => {
+    async function getData() {
+      try{
+        const res = await fetch('https://health-care-server-sooty.vercel.app/nurses')
+        const data = await res.json()
+        setTotalNurses(data.length)
+      }
+      catch (err) {
+        console.log(err)
+      }
+    }
+    getData()
+  }, [])
+  return (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -15,14 +32,15 @@ export const TotalCustomers = (props) => (
             color="textSecondary"
             gutterBottom
             variant="overline"
+            sx={{pr:10}}
           >
-            TOTAL CUSTOMERS
+            Nurses
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            1,6k
+            {totalNurses}
           </Typography>
         </Grid>
         <Grid item>
@@ -33,7 +51,7 @@ export const TotalCustomers = (props) => (
               width: 56
             }}
           >
-            <PeopleIcon />
+            <PersonAddIcon sx={{height: 40, width: 40}} />
           </Avatar>
         </Grid>
       </Grid>
@@ -62,4 +80,5 @@ export const TotalCustomers = (props) => (
       </Box>
     </CardContent>
   </Card>
-);
+  )
+};

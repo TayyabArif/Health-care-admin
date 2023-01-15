@@ -84,14 +84,14 @@ export const Sales = (props) => {
   return (
     <Card {...props}>
       <CardHeader
-        action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
-          >
-            Last 7 days
-          </Button>
-        )}
+        // action={(
+        //   <Button
+        //     endIcon={<ArrowDropDownIcon fontSize="small" />}
+        //     size="small"
+        //   >
+        //     Last 7 days
+        //   </Button>
+        // )}
         title="Latest Sales"
       />
       <Divider />
@@ -116,13 +116,13 @@ export const Sales = (props) => {
           p: 2
         }}
       >
-        <Button
+        {/* <Button
           color="primary"
           endIcon={<ArrowRightIcon fontSize="small" />}
           size="small"
         >
           Overview
-        </Button>
+        </Button> */}
       </Box>
     </Card>
   );

@@ -5,14 +5,16 @@ import {
   CardContent,
   TextField,
   InputAdornment,
-  SvgIcon, Typography
+  SvgIcon,
+  Typography
 } from '@mui/material';
+import { Download as DownloadIcon } from '../../icons/download';
 import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
-import { Download as DownloadIcon } from '../../icons/download';
+import { AddDoctor } from './add-doctor-modal';
 
-export const CustomerListToolbar = (props) => (
-  <Box {...props}>
+export const DoctorListToolbar = (props) => (
+  <Box {...props} sx={{width: '100%'}}>
     <Box
       sx={{
         alignItems: 'center',
@@ -26,28 +28,11 @@ export const CustomerListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Customers
+        Doctors
       </Typography>
-      <Box sx={{ m: 1 }}>
-        <Button
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
-        <Button
-          startIcon={(<DownloadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Export
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Add Customers
-        </Button>
-      </Box>
+      {/* <Box sx={{ m: 1 }}>
+        <AddDoctor />
+      </Box> */}
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>
@@ -59,15 +44,15 @@ export const CustomerListToolbar = (props) => (
                 startAdornment: (
                   <InputAdornment position="start">
                     <SvgIcon
-                      color="action"
                       fontSize="small"
+                      color="action"
                     >
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
+              placeholder="Search Doctor"
               variant="outlined"
             />
           </Box>
