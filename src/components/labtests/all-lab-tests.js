@@ -181,7 +181,6 @@ export const  AllLabTests = ({labTests, onButtonClick, onPaymentUpdate}) => {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                if(row.status === 'pending' || row.payment === 'pending') {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map((column) => {
@@ -211,7 +210,6 @@ export const  AllLabTests = ({labTests, onButtonClick, onPaymentUpdate}) => {
                               variant='contained'
                               onClick={() => handleUpdate(row._id, row.payment )}
                               >
-                                { parseInt(row.rate) - parseInt(row.discountrate)}
                                 Approve
                               </Button>
                             </Grid>
@@ -253,9 +251,15 @@ export const  AllLabTests = ({labTests, onButtonClick, onPaymentUpdate}) => {
                       if (column.id === 'status'){
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            <Typography color= 'error.main' fontWeight='bold'>
-                              {value}
+                           {value === 'pending' ?
+                              <Typography color= 'error.main' fontWeight='bold'>
+                                {value}
+                              </Typography>
+                              :
+                              <Typography color= 'success.main' fontWeight='bold'>
+                                {value}
                             </Typography>
+                          }
                           </TableCell>
                         );
                       }
@@ -284,7 +288,6 @@ export const  AllLabTests = ({labTests, onButtonClick, onPaymentUpdate}) => {
                     })}
                   </TableRow>
                 );
-              }
               })}
           </TableBody>
         </Table>

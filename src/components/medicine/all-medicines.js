@@ -145,7 +145,6 @@ export const  AllMedicines = ({medicines, onButtonClick, onPaymentUpdate}) => {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                if(row.status === 'pending') {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map((column) => {
@@ -199,9 +198,15 @@ export const  AllMedicines = ({medicines, onButtonClick, onPaymentUpdate}) => {
                       if (column.id === 'status'){
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            <Typography color= 'error.main' fontWeight='bold'>
-                              {value}
+                            {value === 'pending' ?
+                              <Typography color= 'error.main' fontWeight='bold'>
+                                {value}
+                              </Typography>
+                              :
+                              <Typography color= 'success.main' fontWeight='bold'>
+                                {value}
                             </Typography>
+                            }
                           </TableCell>
                         );
                       }
@@ -230,7 +235,6 @@ export const  AllMedicines = ({medicines, onButtonClick, onPaymentUpdate}) => {
                     })}
                   </TableRow>
                 );
-              }
               })}
           </TableBody>
         </Table>

@@ -36,7 +36,6 @@ const Page = () => {
     setIsLoading(true)
     axios.put(`https://health-care-server-sooty.vercel.app/updatemedicine?_id=${id}&status=approved`, {headers: { 'Content-Type': 'application/json' }})
     .then(response => {
-        // Handle the response
         setId(response.data[0]._id)
         setIsLoading(false)
         toast.success("Your Medicine is Approved Successfully!");
@@ -51,7 +50,6 @@ const Page = () => {
     setIsLoading(true)
     axios.put(`https://health-care-server-sooty.vercel.app/medicinepayment?_id=${id}&payment=paid`, {headers: { 'Content-Type': 'application/json' }})
     .then(response => {
-        // Handle the response
         setId(response.data[0]._id)
         setIsLoading(false)
         toast.success("Your Payment Approved Successfully!");

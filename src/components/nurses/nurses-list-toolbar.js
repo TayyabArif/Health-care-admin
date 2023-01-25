@@ -65,7 +65,7 @@ export const NursesListToolbar = (props) => (
     <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
-          <Box sx={{ maxWidth: 500 }}>
+          {/* <Box sx={{ maxWidth: 500 }}>
             <TextField
               fullWidth
               InputProps={{
@@ -83,7 +83,7 @@ export const NursesListToolbar = (props) => (
               placeholder="Search customer"
               variant="outlined"
             />
-          </Box>
+          </Box> */}
         </CardContent>
       </Card>
     </Box>
