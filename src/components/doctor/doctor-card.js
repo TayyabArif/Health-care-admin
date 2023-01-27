@@ -6,12 +6,16 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useEffect, useState } from 'react';
 
 
-export const DoctorCard = ({ doctor, ...rest }) => {
+export const DoctorCard = ({ doctor, onDoctorUpdate, ...rest }) => {
   const [isClick, setIsClick] = useState(false)
   const [id, setId] = useState(0)
   const handleClick = (value) => {
     setIsClick(!isClick)
     setId(value)
+  }
+
+  const handleDelete = (id) => {
+    onDoctorUpdate(id)
   }
   return(
     <Card
@@ -49,7 +53,8 @@ export const DoctorCard = ({ doctor, ...rest }) => {
                 color = 'error.main'
                 fontSize='1.1rem'
                 fontWeight = 'bold'
-                sx={{pr: '10px', py:'2px', pl: '5px'}}
+                sx={{pr: '10px', py:'2px', pl: '5px', cursor: 'pointer'}}
+                onClick = {() => handleDelete(doctor._id)}
               >
                 Delete
               </Typography>

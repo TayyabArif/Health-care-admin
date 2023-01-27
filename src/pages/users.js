@@ -6,10 +6,14 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import CircularProgress from '@mui/material/CircularProgress';
 import { customers } from '../__mocks__/customers';
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const Page = () => {
   const [users, setUsers] =useState()
   const [isLoading, setIsLoading] = useState(true)
+  const [id, setId] = useState("")
   useEffect(() => {
     async function getData() {
       try{
@@ -24,7 +28,24 @@ const Page = () => {
       }
     }
     getData()
-  }, [])
+  }, [id])
+
+  const userUpdate = (email) => {
+    setIsLoading(true)
+    axios.delete(`https://health-care-server-sooty.vercel.app/deleteuser?email=${email}`, {headers: { 'Content-Type': 'application/json' }})
+    .then(response => {
+      debugger
+        // Handle the response
+        setId(email)
+        setIsLoading(false)
+        toast.success("User Updated Successfully");
+    })
+    .catch(error => {
+      setIsLoading(false)
+      setId("")
+      toast.error("An error occur while updated user");
+    });
+  }
 
   return(
     <>
@@ -49,7 +70,8 @@ const Page = () => {
           <CustomerListToolbar />
           <Box sx={{ mt: 3 }}>
             <Button >name</Button>
-            <CustomerListResults customers={users} />
+            <CustomerListResults customers={users} onUserUpdate={userUpdate}/>
+            <ToastContainer />
           </Box>
         </Container>
       </Box>

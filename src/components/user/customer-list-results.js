@@ -13,11 +13,12 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
+  Button
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 
-export const CustomerListResults = ({ customers, ...rest }) => {
+export const CustomerListResults = ({ customers, onUserUpdate ,...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -63,6 +64,12 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     setPage(newPage);
   };
 
+  const handleDelete = (customer, id) => {
+    console.log('id is', id)
+    onUserUpdate(customer)
+
+  }
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -95,6 +102,9 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                 </TableCell>
                 <TableCell>
                    Speciality
+                </TableCell>
+                <TableCell>
+                   Remove
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -145,6 +155,13 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   <TableCell>
                     {customer.speciality}
                   </TableCell>
+                  <Button
+                    variant='contained'
+                    onClick = {() => handleDelete(customer.email, customer._id)}
+                    sx={{bgcolor: 'success.main', mt: '17px'}}
+                    >
+                      Delete
+                  </Button>
                 </TableRow>
               ))}
             </TableBody>
