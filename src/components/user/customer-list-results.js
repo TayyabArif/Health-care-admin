@@ -64,9 +64,8 @@ export const CustomerListResults = ({ customers, onUserUpdate ,...rest }) => {
     setPage(newPage);
   };
 
-  const handleDelete = (customer, id) => {
-    console.log('id is', id)
-    onUserUpdate(customer)
+  const handleDelete = (customer, type) => {
+    onUserUpdate(customer,type)
 
   }
 
@@ -157,7 +156,7 @@ export const CustomerListResults = ({ customers, onUserUpdate ,...rest }) => {
                   </TableCell>
                   <Button
                     variant='contained'
-                    onClick = {() => handleDelete(customer.email, customer._id)}
+                    onClick = {() => handleDelete(customer.email, customer.type)}
                     sx={{bgcolor: 'success.main', mt: '17px'}}
                     >
                       Delete

@@ -30,11 +30,10 @@ const Page = () => {
     getData()
   }, [id])
 
-  const userUpdate = (email) => {
+  const userUpdate = (email,type) => {
     setIsLoading(true)
-    axios.delete(`https://health-care-server-sooty.vercel.app/deleteuser?email=${email}`, {headers: { 'Content-Type': 'application/json' }})
+    axios.delete(`https://health-care-server-sooty.vercel.app/deleteuser?email=${email}&type=${type}`, {headers: { 'Content-Type': 'application/json' }})
     .then(response => {
-      debugger
         // Handle the response
         setId(email)
         setIsLoading(false)
