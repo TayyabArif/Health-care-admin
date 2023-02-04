@@ -35,6 +35,13 @@ export const  AllLabTests = ({labTests, onButtonClick, onPaymentUpdate}) => {
       format: (value) => value.toLocaleString('en-US'),
     },
     {
+      id: 'labname',
+      label: 'Lab Name',
+      minWidth: 140,
+      align: 'center',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
       id: 'slot',
       label: 'Time Slot',
       minWidth: 140,
@@ -119,17 +126,17 @@ export const  AllLabTests = ({labTests, onButtonClick, onPaymentUpdate}) => {
       format: (value) => value.toFixed(2),
     },
   ];
-  const createData = (Id, name, title, rate, discountrate, slot, contactnumber, location, branche, city, currentDate, image, payment, Pupdate, status, SData, update, _id) => {
-    return { Id, name, title, rate, discountrate, slot, contactnumber, location, branche, city, currentDate, image, payment, Pupdate, status, SData, update, _id};
+  const createData = (Id, name, title, rate, discountrate, labname,slot, contactnumber, location, branche, city, currentDate, image, payment, Pupdate, status, SData, update, _id) => {
+    return { Id, name, title, rate, discountrate,labname,slot, contactnumber, location, branche, city, currentDate, image, payment, Pupdate, status, SData, update, _id};
   }
   const tableData = labTests.map((labData) => {
-    const { name, title, rate, discountrate, slot, contactnumber, location, branche, Id, image, payment, status, _id } = labData
+    const { name, title, rate, discountrate,labname, slot, contactnumber, location, branche, Id, image, payment, status, _id } = labData
     const update = "update"
     const city = 'Lahore'
     const SData = 'Select Data'
     const Pupdate = 'Pupdate'
     const currentDate = new Date().toLocaleDateString();
-    return createData(Id, name, title, rate, discountrate, slot, contactnumber, location, branche, city, currentDate, image, payment, Pupdate, status, SData, update, _id)
+    return createData(Id, name, title, rate, discountrate,labname, slot, contactnumber, location, branche, city, currentDate, image, payment, Pupdate, status, SData, update, _id)
   })
 
   const rows = tableData

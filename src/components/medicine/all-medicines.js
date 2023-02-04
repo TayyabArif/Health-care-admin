@@ -38,8 +38,43 @@ export const  AllMedicines = ({medicines, onButtonClick, onPaymentUpdate}) => {
       format: (value) => value.toLocaleString('en-US'),
     },
     {
-      id: 'amount',
-      label: 'Amount',
+      id: 'rate',
+      label: 'Rate',
+      minWidth: 100,
+      align: 'center',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'discountrate',
+      label: 'Discountrate',
+      minWidth: 100,
+      align: 'center',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'sum',
+      label: 'Sum',
+      minWidth: 100,
+      align: 'center',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'address',
+      label: 'Address',
+      minWidth: 100,
+      align: 'center',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'company',
+      label: 'Company',
+      minWidth: 100,
+      align: 'center',
+      format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+      id: 'expirydate',
+      label: 'Expired Date',
       minWidth: 100,
       align: 'center',
       format: (value) => value.toLocaleString('en-US'),
@@ -87,16 +122,17 @@ export const  AllMedicines = ({medicines, onButtonClick, onPaymentUpdate}) => {
       format: (value) => value.toFixed(2),
     },
   ];
-  const createData = (Id, name, medicine, quantity, location, contactnumber, amount, branche, currentDate, image, payment, Pupdate, status, update, _id) => {
-    return { Id, name, medicine, quantity, location, contactnumber, amount, branche, image, payment, Pupdate, currentDate, status, update, _id};
+  const createData = (Id, name, medicine, quantity, location, contactnumber, rate,discountrate,sum,address,company,expirydate,branche, currentDate, image, payment, Pupdate, status, update, _id) => {
+    return { Id, name, medicine, quantity, location, contactnumber, rate,discountrate,sum,address,expirydate,company,branche, image, payment, Pupdate, currentDate, status, update, _id};
   }
   const tableData = medicines?.map((labData) => {
     const { name, medicine, quantity, location
-    ,contactnumber, amount, branche, Id, image, payment, status, _id } = labData
+    ,contactnumber, rate,discountrate,sum,address,company,branche, Id, image, payment, status, _id } = labData
     const update = "update"
     const Pupdate = 'Pupdate'
     const currentDate = new Date().toLocaleDateString();
-    return createData(Id, name, medicine, quantity, location, contactnumber, amount, branche, currentDate, image, payment, Pupdate, status, update, _id)
+    const expirydate=new Date().toLocaleDateString();
+    return createData(Id, name, medicine, quantity, location,contactnumber, rate,discountrate,sum,address,company,expirydate,branche, currentDate, image, payment, Pupdate, status, update, _id)
   })
 
   const rows = tableData

@@ -99,9 +99,9 @@ export const CustomerListResults = ({ customers, onUserUpdate ,...rest }) => {
                 <TableCell>
                   Phone
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                    Speciality
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                    Remove
                 </TableCell>
@@ -109,6 +109,7 @@ export const CustomerListResults = ({ customers, onUserUpdate ,...rest }) => {
             </TableHead>
             <TableBody>
               {customers.slice(0, limit).map((customer) => (
+                (customer.type === 'patient' || customer.type === 'doctor')?
                 <TableRow
                   hover
                   key={customer.id}
@@ -145,15 +146,15 @@ export const CustomerListResults = ({ customers, onUserUpdate ,...rest }) => {
                   <TableCell>
                     {customer.email}
                   </TableCell>
-                  <TableCell>
+                  <TableCell style={{textTransform: 'capitalize'}}>
                     {customer.type}
                   </TableCell>
                   <TableCell>
                     {customer.phone}
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     {customer.speciality}
-                  </TableCell>
+                  </TableCell> */}
                   <Button
                     variant='contained'
                     onClick = {() => handleDelete(customer.email, customer.type)}
@@ -161,7 +162,7 @@ export const CustomerListResults = ({ customers, onUserUpdate ,...rest }) => {
                     >
                       Delete
                   </Button>
-                </TableRow>
+                </TableRow>:null
               ))}
             </TableBody>
           </Table>

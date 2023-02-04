@@ -32,8 +32,8 @@ const Page = () => {
     getData()
   }, [id])
 
-  const handleButtonClick = (id) => {
-    console.log(id)
+  const handleButtonClick = (id,detail) => {
+    console.log(id, detail)
     setIsLoading(true)
     axios.put(`https://health-care-server-sooty.vercel.app/updateAppointmentStatus?_id=${id}&status=approved`, {headers: { 'Content-Type': 'application/json' }})
     .then(response => {
@@ -41,11 +41,68 @@ const Page = () => {
         console.log(response.data[0]._id)
         setId(response.data[0]._id)
         setIsLoading(false)
+        axios.post(`https://health-care-server-sooty.vercel.app/sendApptMail?email=${detail.email}&hospital=${detail.hospital}&doctor=${detail.doctor}&date=${detail.date}&time=${detail.time}`).then((res)=>{
+          toast.success("Appointment details shared with patient!");
+        }).catch((e)=>{
+          console.log('Error in sending mail!',e)
+          toast.error("An error occur while sending mail to patient");
+        })
+
+        axios.post(`https://health-care-server-sooty.vercel.app/sendApptMail?email=${detail.docEmail}&hospital=${detail.hospital}&doctor=${detail.doctor}&date=${detail.date}&time=${detail.time}`).then((res)=>{
+          toast.success("Appointment details shared with doctor!");
+        }).catch((e)=>{
+          console.log('Error in sending mail!',e)
+          toast.error("An error occur while sending mail to doctor");
+        })
+
         toast.success("Your Appointment is Approved Successfully!");
     })
     .catch(error => {
       setId("")
       toast.error("An error occur while Approving Appointment");
+    });
+  };
+
+  const handleButtonClick1 = (id,detail) => {
+    console.log(id, detail)
+    setIsLoading(true)
+    axios.put(`https://health-care-server-sooty.vercel.app/updateAppointmentStatus?_id=${id}&status=approved`, {headers: { 'Content-Type': 'application/json' }})
+    .then(response => {
+        // Handle the response
+        console.log(response.data[0]._id)
+        setId(response.data[0]._id)
+        setIsLoading(false)
+
+        axios.post(`https://health-care-server-sooty.vercel.app/createvideocallid`).then((res)=>{
+          console.log(res.data)
+          let temp = res.data.callID;
+
+          axios.post(`https://health-care-server-sooty.vercel.app/sendVideoID?email=${detail.email}&id=${temp}`).then((res)=>{
+            toast.success("Video call details shared with patient!");
+            console.log(res.data)
+          }).catch((e)=>{
+            console.log('Error in sending mail!1',e)
+            toast.error("An error occur while sending mail to patient");
+          })
+
+          axios.post(`https://health-care-server-sooty.vercel.app/sendVideoID?email=${detail.docEmail}&id=${temp}`).then((res)=>{
+            toast.success("Video call detail shared with doctor!");
+            console.log(res.data)
+          }).catch((e)=>{
+            console.log('Error in sending mail!2',e)
+            toast.error("An error occur while sending mail to doctor");
+          })
+
+        }).catch((e)=>{
+          console.log('Error in sending mail!3',e)
+          toast.error("An error occur while Generating video call id");
+        })
+
+        toast.success("Your Video consultation is Approved Successfully!");
+    })
+    .catch(error => {
+      setId("")
+      toast.error("An error occur while Approving video consultation");
     });
   };
 
@@ -71,7 +128,7 @@ const Page = () => {
         <Container maxWidth={false}>
           <AppointmentListToolbar />
           <Box sx={{ mt: 3 }}>
-            <AllAppointments appointments = {appointments} onButtonClick= {handleButtonClick}/>
+            <AllAppointments appointments = {appointments} onButtonClick= {handleButtonClick} onButtonClick1= {handleButtonClick1}/>
             <ToastContainer />
           </Box>
         </Container>
